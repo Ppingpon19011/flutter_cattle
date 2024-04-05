@@ -23,7 +23,7 @@ class _MainButtonState extends State<MainButton> {
         width: 328,
         child: Padding(
           padding: EdgeInsets.all(4),
-          child: new RaisedButton(
+          child: new ElevatedButton(
             // กดแล้วให้ไปหน้า FisrtPage/SelectInput พร้อบระบุชนิดของสื่เป็น vdo หรือ  image
             onPressed: () => widget.onSelected(),
             child: Text("${widget.title}",
@@ -31,13 +31,13 @@ class _MainButtonState extends State<MainButton> {
                     fontSize: 24,
                     color: Color(hex.hexColor("ffffff")),
                     fontWeight: FontWeight.bold)),
-            color: Color(hex.Blue()),
-            // รูปทรงปุ่ม
-            shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(12.0),
-              // กรอบปุ่ม
-              side: BorderSide(color: Colors.white),
-            ),
+            // color: Color(hex.Blue()),
+            // // รูปทรงปุ่ม
+            // shape: RoundedRectangleBorder(
+            //   borderRadius: new BorderRadius.circular(12.0),
+            //   // กรอบปุ่ม
+            //   side: BorderSide(color: Colors.white),
+            // ),
           ),
         ));
   }

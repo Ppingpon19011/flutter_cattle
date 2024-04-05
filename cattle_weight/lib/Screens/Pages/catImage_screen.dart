@@ -67,7 +67,7 @@ class _CatImageScreenState extends State<CatImageScreen> {
   // Implementing the image picker
   Future<void> pickImageFromGallery() async {
     final pickedImage =
-        await picker.getImage(source: ImageSource.gallery).then((imgFile) {
+        await picker.pickImage(source: ImageSource.gallery).then((imgFile) {
       final file = File(imgFile!.path);
       String imgString = Utility.base64String(file.readAsBytesSync());
       ImageModel photo = ImageModel(
@@ -383,7 +383,7 @@ class NoteDialog {
                 controller: txtNote,
                 decoration: InputDecoration(hintText: 'Note')),
             SizedBox(height: 8),
-            RaisedButton(
+            ElevatedButton(
               child: Text('บันทึก'),
               onPressed: () async {
                 print("${txtNote.text}");

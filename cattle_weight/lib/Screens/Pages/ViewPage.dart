@@ -110,7 +110,7 @@ class CattlePreview extends StatelessWidget {
                         width: 80,
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                          child: new RaisedButton(
+                          child: new ElevatedButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => EditOption()));
@@ -121,14 +121,14 @@ class CattlePreview extends StatelessWidget {
                                   fontSize: 24,
                                   color: Color(hex.hexColor("ffffff"))),
                             ),
-                            color: Color(hex.hexColor("#FAA41B")),
-                            // สีปุ่มเมื่อกด
-                            splashColor: Color(hex.hexColor("#FFC909")),
-                            // กำหนดรูปร่างของปุ่ม
-                            shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(20.0),
-                              // side: BorderSide(color: Colors.black),
-                            ),
+                            // color: Color(hex.hexColor("#FAA41B")),
+                            // // สีปุ่มเมื่อกด
+                            // splashColor: Color(hex.hexColor("#FFC909")),
+                            // // กำหนดรูปร่างของปุ่ม
+                            // shape: RoundedRectangleBorder(
+                            //   borderRadius: new BorderRadius.circular(20.0),
+                            //   // side: BorderSide(color: Colors.black),
+                            // ),
                           ),
                         )),
                   ),
@@ -139,7 +139,7 @@ class CattlePreview extends StatelessWidget {
                         width: 80,
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                          child: new RaisedButton(
+                          child: new ElevatedButton(
                             onPressed: () {
                               showDialog<String>(
                                   context: context,
@@ -177,14 +177,14 @@ class CattlePreview extends StatelessWidget {
                                   fontSize: 24,
                                   color: Color(hex.hexColor("ffffff"))),
                             ),
-                            color: Color(hex.hexColor("#FAA41B")),
-                            // สีปุ่มเมื่อกด
-                            splashColor: Color(hex.hexColor("#FFC909")),
-                            // กำหนดรูปร่างของปุ่ม
-                            shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(20.0),
-                              // side: BorderSide(color: Colors.black),
-                            ),
+                            // color: Color(hex.hexColor("#FAA41B")),
+                            // // สีปุ่มเมื่อกด
+                            // splashColor: Color(hex.hexColor("#FFC909")),
+                            // // กำหนดรูปร่างของปุ่ม
+                            // shape: RoundedRectangleBorder(
+                            //   borderRadius: new BorderRadius.circular(20.0),
+                            //   // side: BorderSide(color: Colors.black),
+                            // ),
                           ),
                         )),
                   ),
@@ -200,7 +200,7 @@ class CattlePreview extends StatelessWidget {
             width: 160,
             child: Padding(
               padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: new RaisedButton(
+              child: new ElevatedButton(
                 onPressed: () {
                   print("บันทึกหน้าจอ");
                 },
@@ -209,14 +209,14 @@ class CattlePreview extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 24, color: Color(hex.hexColor("ffffff"))),
                 ),
-                color: Color(hex.hexColor("#FAA41B")),
-                // สีปุ่มเมื่อกด
-                splashColor: Color(hex.hexColor("#FFC909")),
-                // กำหนดรูปร่างของปุ่ม
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(20.0),
-                  // side: BorderSide(color: Colors.black),
-                ),
+                // color: Color(hex.hexColor("#FAA41B")),
+                // // สีปุ่มเมื่อกด
+                // splashColor: Color(hex.hexColor("#FFC909")),
+                // // กำหนดรูปร่างของปุ่ม
+                // shape: RoundedRectangleBorder(
+                //   borderRadius: new BorderRadius.circular(20.0),
+                //   // side: BorderSide(color: Colors.black),
+                // ),
               ),
             )),
         SizedBox(
@@ -228,7 +228,7 @@ class CattlePreview extends StatelessWidget {
             width: 160,
             child: Padding(
               padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: new RaisedButton(
+              child: new ElevatedButton(
                 onPressed: () {
                   // print("หน้าหลัก");
                   // Navigator.pushAndRemoveUntil(
@@ -241,14 +241,14 @@ class CattlePreview extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 24, color: Color(hex.hexColor("ffffff"))),
                 ),
-                color: Color(hex.hexColor("#FAA41B")),
-                // สีปุ่มเมื่อกด
-                splashColor: Color(hex.hexColor("#FFC909")),
-                // กำหนดรูปร่างของปุ่ม
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(20.0),
-                  // side: BorderSide(color: Colors.black),
-                ),
+                // color: Color(hex.hexColor("#FAA41B")),
+                // // สีปุ่มเมื่อกด
+                // splashColor: Color(hex.hexColor("#FFC909")),
+                // // กำหนดรูปร่างของปุ่ม
+                // shape: RoundedRectangleBorder(
+                //   borderRadius: new BorderRadius.circular(20.0),
+                //   // side: BorderSide(color: Colors.black),
+                // ),
               ),
             )),
       ]),

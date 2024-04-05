@@ -73,8 +73,7 @@ class _AddPhotoCattlesState extends State<AddPhotoCattles> {
           final picker = ImagePicker();
 
           Future<void> pickImageFromGallery() async {
-            final pickedImage = await picker
-                .getImage(
+            final pickedImage = await picker.pickImage(
                     source: ImageSource.gallery,
                     maxHeight: 1080,
                     maxWidth: 2160,

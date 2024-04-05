@@ -206,7 +206,7 @@ class _ExampleChartState extends State<ExampleChart> {
                     tooltipBehavior: _tooltipBehavior,
                     // Initialize category axis
                     primaryXAxis: CategoryAxis(),
-                    series: <ChartSeries>[
+                    series: [
           // Initialize line series
           LineSeries<ChartData, String>(
               name: 'อัตราการเจริญเติบโต',
