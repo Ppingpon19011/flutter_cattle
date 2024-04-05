@@ -156,7 +156,7 @@ class _ChatPage extends State<ChatPage> {
           Container(
             height: 60,
             width: 240,
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: () {
                 _disconnect();
                 // Navigator.of(context).push(MaterialPageRoute(
@@ -168,18 +168,18 @@ class _ChatPage extends State<ChatPage> {
                       fontSize: 24,
                       color: Color(hex.hexColor("ffffff")),
                       fontWeight: FontWeight.bold)),
-              color: Color(hex.hexColor("#47B5BE")),
-              shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(20.0),
-                side: BorderSide(color: Colors.white),
-              ),
+              // color: Color(hex.hexColor("#47B5BE")),
+              // shape: RoundedRectangleBorder(
+              //   borderRadius: new BorderRadius.circular(20.0),
+              //   side: BorderSide(color: Colors.white),
+              // ),
             ),
           ),
           SizedBox(height:20),
           Container(
             height: 60,
             width: 240,
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: () {
                 _connect();
                 // Navigator.of(context).push(MaterialPageRoute(
@@ -191,11 +191,11 @@ class _ChatPage extends State<ChatPage> {
                       fontSize: 24,
                       color: Color(hex.hexColor("ffffff")),
                       fontWeight: FontWeight.bold)),
-              color: Color(hex.hexColor("#47B5BE")),
-              shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(20.0),
-                side: BorderSide(color: Colors.white),
-              ),
+              // color: Color(hex.hexColor("#47B5BE")),
+              // shape: RoundedRectangleBorder(
+              //   borderRadius: new BorderRadius.circular(20.0),
+              //   side: BorderSide(color: Colors.white),
+              // ),
             ),
           )
         ],
