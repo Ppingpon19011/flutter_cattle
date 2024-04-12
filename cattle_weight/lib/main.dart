@@ -8,13 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'convetHex.dart';
 
-
 ConvertHex hex = new ConvertHex();
 
 List<CameraDescription> cameras = [];
 
 void main() async {
-
   try {
     WidgetsFlutterBinding.ensureInitialized();
     cameras = await availableCameras();
@@ -29,7 +27,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp();
 
   @override
@@ -44,10 +41,8 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: 
-        // ExportSQLtoCSV(title:"Export sql table to csv")
-        CatProScreen()
-        
-        );
+        home:
+            // ExportSQLtoCSV(title:"Export sql table to csv")
+            CatProScreen());
   }
 }
