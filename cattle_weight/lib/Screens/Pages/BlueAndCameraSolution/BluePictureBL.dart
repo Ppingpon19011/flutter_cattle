@@ -1,4 +1,3 @@
-// @dart=2.9
 import 'package:camera/camera.dart';
 import 'package:cattle_weight/BlueCamera/BlueCameraRear_screen.dart';
 import 'package:cattle_weight/Camera/cameraRear_screen.dart';
@@ -27,12 +26,12 @@ CattleCalculation calculate = new CattleCalculation();
 
 class BluePictureBL extends StatefulWidget {
   final catTimeID;
-  final String imgPath;
-  final String fileName;
-  final BluetoothDevice server;
-  final bool blueConnection;
+  final String? imgPath;
+  final String? fileName;
+  final BluetoothDevice? server;
+  final bool? blueConnection;
   const BluePictureBL(
-      {Key key,
+      {Key? key,
       this.imgPath,
       this.fileName,
       this.catTimeID,
@@ -46,8 +45,8 @@ class BluePictureBL extends StatefulWidget {
 
 class _BluePictureBLState extends State<BluePictureBL> {
   bool showState = false;
-  CatTimeHelper catTimeHelper;
-  Future<CatTimeModel> catTimeData;
+  late CatTimeHelper catTimeHelper;
+  late Future<CatTimeModel> catTimeData;
   ImageNavidation line = new ImageNavidation();
 
   Future loadData() async {
@@ -72,11 +71,11 @@ class _BluePictureBLState extends State<BluePictureBL> {
                     color: Color(hex.hexColor("ffffff")),
                     fontWeight: FontWeight.bold)),
             backgroundColor: Color(hex.hexColor("#007BA4"))),
-        body: new Stack(
+        body: Stack(
           children: [
             LineAndPositionPictureBL(
-              imgPath: widget.imgPath,
-              fileName: widget.fileName,
+              imgPath: widget.imgPath!,
+              fileName: widget.fileName!, onSelected: () {  },
             ),
             Padding(
               padding: EdgeInsets.all(20),
@@ -91,36 +90,36 @@ class _BluePictureBLState extends State<BluePictureBL> {
                               MainButton(
                                   onSelected: () async {
                                     double bl = calculate.distance(
-                                        snapshot.data.pixelReference,
-                                        snapshot.data.distanceReference,
+                                        snapshot.data!.pixelReference,
+                                        snapshot.data!.distanceReference,
                                         pos.getPixelDistance());
 
                                     print("Body Lenght: $bl CM.");
 
                                     await catTimeHelper.updateCatTime(
                                         CatTimeModel(
-                                            id: snapshot.data.id,
-                                            idPro: snapshot.data.idPro,
-                                            weight: snapshot.data.weight,
+                                            id: snapshot.data!.id,
+                                            idPro: snapshot.data!.idPro,
+                                            weight: snapshot.data!.weight,
                                             bodyLenght: bl,
                                             heartGirth: snapshot
-                                                .data.heartGirth,
+                                                .data!.heartGirth,
                                             hearLenghtSide: snapshot
-                                                .data.hearLenghtSide,
+                                                .data!.hearLenghtSide,
                                             hearLenghtRear:
-                                                snapshot.data.hearLenghtRear,
+                                                snapshot.data!.hearLenghtRear,
                                             hearLenghtTop:
-                                                snapshot.data.hearLenghtTop,
+                                                snapshot.data!.hearLenghtTop,
                                             pixelReference:
-                                                snapshot.data.pixelReference,
-                                            distanceReference:
-                                                snapshot.data.distanceReference,
-                                            imageSide: snapshot.data.imageSide,
-                                            imageRear: snapshot.data.imageRear,
-                                            imageTop: snapshot.data.imageTop,
+                                                snapshot.data!.pixelReference,
+                                            distanceReference: snapshot
+                                                .data!.distanceReference,
+                                            imageSide: snapshot.data!.imageSide,
+                                            imageRear: snapshot.data!.imageRear,
+                                            imageTop: snapshot.data!.imageTop,
                                             date: DateTime.now()
                                                 .toIso8601String(),
-                                            note: snapshot.data.note));
+                                            note: snapshot.data!.note));
 
                                     loadData();
 
@@ -128,14 +127,14 @@ class _BluePictureBLState extends State<BluePictureBL> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 BlueAndCameraRear(
-                                                    server: widget.server,
-                                                    idPro:snapshot.data.idPro,
-                                                    idTime: snapshot.data.id,
-                                                    catTime:  snapshot.data)));
+                                                    server: widget.server!,
+                                                    idPro: snapshot.data!.idPro,
+                                                    idTime: snapshot.data!.id!,
+                                                    catTime: snapshot.data!)));
 
                                     // chang new camera
                                   },
-                                  title: "บันทึก"),
+                                  title: "บันทึก", pixelDistance: 10,),
                             ]),
                       );
                     } else {
@@ -172,8 +171,11 @@ class LineAndPositionPictureBL extends StatefulWidget {
   final String imgPath;
   final String fileName;
   final VoidCallback onSelected;
-  const LineAndPositionPictureBL(
-      {this.imgPath, this.fileName, this.onSelected});
+  const LineAndPositionPictureBL({
+    required this.imgPath,
+    required this.fileName,
+    required this.onSelected
+  });
 
   @override
   LineAndPositionPictureBLState createState() =>
@@ -188,8 +190,8 @@ class LineAndPositionPictureBLState extends State<LineAndPositionPictureBL> {
 
   void onTapDown(BuildContext context, TapDownDetails details) {
     print('${details.globalPosition}');
-    final RenderBox box = context.findRenderObject();
-    final Offset localOffset = box.globalToLocal(details.globalPosition);
+    final RenderBox? box = context.findRenderObject() as RenderBox;
+    final Offset localOffset = box!.globalToLocal(details.globalPosition);
 
     setState(() {
       index++;

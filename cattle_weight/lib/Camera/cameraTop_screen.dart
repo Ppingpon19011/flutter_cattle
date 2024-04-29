@@ -291,7 +291,8 @@ class _CameraTopScreenState extends State<CameraTopScreen>
   @override
   void initState() {
     // Hide the status bar in Android
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     getPermissionStatus();
     controllerAnimated = AnimationController(
         vsync: this, duration: Duration(milliseconds: 300), value: 0);

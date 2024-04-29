@@ -1,4 +1,4 @@
-// @dart=2.9
+
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
@@ -20,7 +20,7 @@ class LineAndPosition extends StatefulWidget {
   final String imgPath;
   final String fileName;
   final VoidCallback onSelected;
-  const LineAndPosition({this.imgPath, this.fileName, this.onSelected});
+  const LineAndPosition({required this.imgPath, required this.fileName, required this.onSelected});
 
   @override
   LineAndPositionState createState() => new LineAndPositionState();
@@ -34,8 +34,8 @@ class LineAndPositionState extends State<LineAndPosition> {
 
   void onTapDown(BuildContext context, TapDownDetails details) {
     print('${details.globalPosition}');
-    final RenderBox box = context.findRenderObject();
-    final Offset localOffset = box.globalToLocal(details.globalPosition);
+    final RenderBox? box = context.findRenderObject() as RenderBox;
+    final Offset localOffset = box!.globalToLocal(details.globalPosition);
 
     setState(() {
       index++;
@@ -124,7 +124,7 @@ class LineAndPositionState extends State<LineAndPosition> {
                 onSelected: () {
                   widget.onSelected();
                 },
-                title: "บันทึก"),
+                title: "บันทึก", pixelDistance: 10,),
           ]),
         ),
       ]),

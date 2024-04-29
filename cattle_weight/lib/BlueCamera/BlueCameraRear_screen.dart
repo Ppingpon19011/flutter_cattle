@@ -24,14 +24,14 @@ import '../main.dart';
 ConvertHex hex = new ConvertHex();
 
 class BlueCameraRearScreen extends StatefulWidget {
-  final int idPro;
-  final int idTime;
-  final BluetoothDevice server;
-  final bool blueConnection;
-  final String localFront;
-  final String localBack;
-  final CatTimeModel catTime;
-  final double heightValue;
+  final int? idPro;
+  final int? idTime;
+  final BluetoothDevice? server;
+  final bool? blueConnection;
+  final String? localFront;
+  final String? localBack;
+  final CatTimeModel? catTime;
+  final double? heightValue;
   // final VoidCallback navigator;
 
   const BlueCameraRearScreen({
@@ -306,7 +306,8 @@ class _BlueCameraRearScreenState extends State<BlueCameraRearScreen>
   @override
   void initState() {
     // Hide the status bar in Android
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     getPermissionStatus();
     controllerAnimated = AnimationController(
         vsync: this, duration: Duration(milliseconds: 300), value: 0);
@@ -335,7 +336,7 @@ class _BlueCameraRearScreenState extends State<BlueCameraRearScreen>
     videoController?.dispose();
     // Bluetooth
     // Avoid memory leak (`setState` after dispose) and disconnect
-    if (widget.blueConnection) {
+    if (widget.blueConnection!) {
       isDisconnecting = true;
       connection.dispose();
       connection = null;
@@ -603,20 +604,21 @@ class _BlueCameraRearScreenState extends State<BlueCameraRearScreen>
                                                         MaterialPageRoute(
                                                           builder: (context) =>
                                                               BluePreviewRearScreen(
-                                                            idPro: widget.idPro,
+                                                            idPro: widget.idPro!,
                                                             idTime:
-                                                                widget.idTime,
+                                                                widget.idTime!,
                                                             imageFile:
                                                                 _imageFile!,
                                                             fileList:
                                                                 allFileList,
                                                             catTime:
-                                                                widget.catTime,
+                                                                widget.catTime!,
                                                             server:
-                                                                widget.server,
+                                                                widget.server!,
                                                             blueConnection: widget
-                                                                .blueConnection,
-                                                            heightValue: widget.heightValue,
+                                                                .blueConnection!,
+                                                            heightValue: widget
+                                                                .heightValue!,
                                                           ),
                                                         ),
                                                       );
@@ -672,8 +674,8 @@ class _BlueCameraRearScreenState extends State<BlueCameraRearScreen>
                             showState
                                 ? Container()
                                 : CattleNavigationLine(
-                                    front: widget.localFront,
-                                    back: widget.localBack,
+                                    front: widget.localFront!,
+                                    back: widget.localBack!,
                                     imageHeight: 380,
                                     imageWidth: 280,
                                     showFront: showFront)

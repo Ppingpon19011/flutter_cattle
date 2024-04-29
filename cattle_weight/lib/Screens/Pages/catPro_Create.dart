@@ -170,7 +170,7 @@ class CatProFormCreateState extends State<CatProFormCreate> {
                       children: [
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.red,
+                              backgroundColor: Colors.red,
                               padding: EdgeInsets.symmetric(
                                   horizontal: 44, vertical: 16),
                               textStyle: TextStyle(
@@ -185,7 +185,7 @@ class CatProFormCreateState extends State<CatProFormCreate> {
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.blue,
+                              backgroundColor: Colors.blue,
                               padding: EdgeInsets.symmetric(
                                   horizontal: 44, vertical: 16),
                               textStyle: TextStyle(

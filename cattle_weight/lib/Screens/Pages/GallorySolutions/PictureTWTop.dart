@@ -1,4 +1,4 @@
-// @dart=2.9
+
 
 import 'dart:io';
 
@@ -20,11 +20,11 @@ Positions pos = new Positions();
 CattleCalculation calculate = new CattleCalculation();
 
 class GalloryTWTop extends StatefulWidget {
-  final File imageFile;
-  final String fileName;
-  final CatTimeModel catTime;
+  final File? imageFile;
+  final String? fileName;
+  final CatTimeModel? catTime;
   const GalloryTWTop({
-    Key key,
+    Key? key,
     this.imageFile,
     this.fileName,
     this.catTime,
@@ -37,17 +37,17 @@ class GalloryTWTop extends StatefulWidget {
 class _GalloryTWTopState extends State<GalloryTWTop> {
   bool showState = false;
   TextEditingController _textFieldController = TextEditingController();
-  CatTimeHelper catTimeHelper;
-  Future<CatTimeModel> catTimeData;
+  CatTimeHelper ?catTimeHelper;
+  Future<CatTimeModel> ?catTimeData;
 
   loadData() async {
-    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTime.id);
+    catTimeData = catTimeHelper?.getCatTimeWithCatTimeID(widget.catTime!.id!);
   }
 
   @override
   void initState() {
     super.initState();
-    catTimeHelper = new CatTimeHelper();
+    catTimeHelper = CatTimeHelper();
 
     loadData();
   }
@@ -69,11 +69,11 @@ class _GalloryTWTopState extends State<GalloryTWTop> {
                 return Stack(
                   children: [
                     KLaPGalloryTWTop(
-                        imgPath: widget.imageFile.path,
-                        fileName: widget.fileName),
+                        imgPath: widget.imageFile!.path,
+                        fileName: widget.fileName!),
                     Center(
                       child: Padding(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -81,41 +81,41 @@ class _GalloryTWTopState extends State<GalloryTWTop> {
                                   onSelected: () async {
                                     // print("POS: ${pos.getPixelDistance().toStringAsFixed(4)}\tHear Lenght Rear: ${snapshot.data.hearLenghtRear.toStringAsFixed(4)}");
 
-                                    await catTimeHelper.updateCatTime(
+                                    await catTimeHelper?.updateCatTime(
                                         CatTimeModel(
-                                            id: snapshot.data.id,
-                                            idPro: snapshot.data.idPro,
-                                            weight: snapshot.data.weight,
+                                            id: snapshot.data!.id,
+                                            idPro: snapshot.data!.idPro,
+                                            weight: snapshot.data!.weight,
                                             bodyLenght:
-                                                snapshot.data.bodyLenght,
+                                                snapshot.data!.bodyLenght,
                                             heartGirth:
-                                                snapshot.data.heartGirth,
+                                                snapshot.data!.heartGirth,
                                             hearLenghtSide:
-                                                snapshot.data.hearLenghtSide,
+                                                snapshot.data!.hearLenghtSide,
                                             hearLenghtRear:
-                                                snapshot.data.hearLenghtRear,
+                                                snapshot.data!.hearLenghtRear,
                                             hearLenghtTop:
-                                                snapshot.data.hearLenghtTop,
+                                                snapshot.data!.hearLenghtTop,
                                             pixelReference:
                                                 pos.getPixelDistance(),
                                             distanceReference:
-                                                snapshot.data.hearLenghtRear,
-                                            imageSide: snapshot.data.imageSide,
-                                            imageRear: snapshot.data.imageRear,
-                                            imageTop: snapshot.data.imageTop,
+                                                snapshot.data!.hearLenghtRear,
+                                            imageSide: snapshot.data!.imageSide,
+                                            imageRear: snapshot.data!.imageRear,
+                                            imageTop: snapshot.data!.imageTop,
                                             date: DateTime.now()
                                                 .toIso8601String(),
-                                            note: snapshot.data.note));
+                                            note: snapshot.data!.note));
 
                                     loadData();
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) => GalloryHGTop(
-                                                imgPath: widget.imageFile.path,
+                                                imgPath: widget.imageFile!.path,
                                                 fileName: widget.fileName,
-                                                catTimeID: snapshot.data.id)));
+                                                catTimeID: snapshot.data!.id)));
                                   },
-                                  title: "บันทึก"),
+                                  title: "บันทึก", pixelDistance: 10,),
                             ]),
                       ),
                     ),
@@ -123,8 +123,8 @@ class _GalloryTWTopState extends State<GalloryTWTop> {
                         ? Container()
                         : AlertDialog(
                             // backgroundColor: Colors.black,
-                            title: Text("ระบุความกว้างกระดูกก้นกบของโค",
-                                style: TextStyle(
+                            title: const Text("ระบุความกว้างกระดูกก้นกบของโค",
+                                style: const TextStyle(
                                     fontSize: 28, fontWeight: FontWeight.bold)),
                             content: Image.asset(
                                 "assets/images/TopLeftNavigation3.png"),
@@ -149,9 +149,9 @@ class _GalloryTWTopState extends State<GalloryTWTop> {
 }
 
 class KLaPGalloryTWTop extends StatefulWidget {
-  final String imgPath;
-  final String fileName;
-  final VoidCallback onSelected;
+  final String? imgPath;
+  final String? fileName;
+  final VoidCallback? onSelected;
   const KLaPGalloryTWTop({this.imgPath, this.fileName, this.onSelected});
 
   @override
@@ -166,8 +166,8 @@ class KLaPGalloryTWTopState extends State<KLaPGalloryTWTop> {
 
   void onTapDown(BuildContext context, TapDownDetails details) {
     print('${details.globalPosition}');
-    final RenderBox box = context.findRenderObject();
-    final Offset localOffset = box.globalToLocal(details.globalPosition);
+    final RenderBox? box = context.findRenderObject() as RenderBox;
+    final Offset localOffset = box!.globalToLocal(details.globalPosition);
 
     setState(() {
       index++;
@@ -207,8 +207,8 @@ class KLaPGalloryTWTopState extends State<KLaPGalloryTWTop> {
         new RotatedBox(
           quarterTurns: 1,
           child: PreviewScreen(
-            imgPath: widget.imgPath,
-            fileName: widget.fileName,
+            imgPath: widget.imgPath!,
+            fileName: widget.fileName!,
           ),
         ),
         //// Show position (x2,y2)

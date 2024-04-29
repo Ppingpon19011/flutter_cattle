@@ -1,4 +1,4 @@
-// @dart=2.9
+
 import 'dart:io';
 import 'dart:math';
 
@@ -26,13 +26,13 @@ Positions pos = new Positions();
 CattleCalculation calculate = new CattleCalculation();
 
 class BluePictureHG_Rear extends StatefulWidget {
-  final File imageFile;
-  final String fileName;
-  final CatTimeModel catTime;
-  final BluetoothDevice server;
-  final bool blueConnection;
+  final File? imageFile;
+  final String? fileName;
+  final CatTimeModel? catTime;
+  final BluetoothDevice? server;
+  final bool? blueConnection;
   const BluePictureHG_Rear(
-      {Key key,
+      {Key? key,
       this.imageFile,
       this.fileName,
       this.catTime,
@@ -46,11 +46,11 @@ class BluePictureHG_Rear extends StatefulWidget {
 
 class _BluePictureHG_RearState extends State<BluePictureHG_Rear> {
   bool showState = false;
-  CatTimeHelper catTimeHelper;
-  Future<CatTimeModel> catTimeData;
+  late CatTimeHelper catTimeHelper;
+  late Future<CatTimeModel> catTimeData;
 
   Future loadData() async {
-    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTime.id);
+    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTime!.id!);
   }
 
   @override
@@ -74,8 +74,8 @@ class _BluePictureHG_RearState extends State<BluePictureHG_Rear> {
         body: new Stack(
           children: [
             LineAndPositionPictureHG_Rear(
-              imgPath: widget.imageFile.path,
-              fileName: widget.fileName,
+              imgPath: widget.imageFile!.path,
+              fileName: widget.fileName!, onSelected: () {  },
             ),
             Padding(
               padding: EdgeInsets.all(20),
@@ -92,8 +92,8 @@ class _BluePictureHG_RearState extends State<BluePictureHG_Rear> {
                                   // print(
                                   //     "Pixel Reference: ${snapshot.data.pixelReference}\tDistance Reference: ${snapshot.data.distanceReference}\nimageSide: ${snapshot.data.imageSide}");
                                   double hlr = calculate.distance(
-                                      snapshot.data.pixelReference,
-                                      snapshot.data.distanceReference,
+                                      snapshot.data!.pixelReference,
+                                      snapshot.data!.distanceReference,
                                       pos.getPixelDistance());
 
                                   // print("Hear Lenght Rear: $hlr CM.");
@@ -101,35 +101,35 @@ class _BluePictureHG_RearState extends State<BluePictureHG_Rear> {
 
                                   await catTimeHelper.updateCatTime(
                                       CatTimeModel(
-                                          id: snapshot.data.id,
-                                          idPro: snapshot.data.idPro,
-                                          weight: snapshot.data.weight,
-                                          bodyLenght: snapshot.data.bodyLenght,
-                                          heartGirth: snapshot.data.heartGirth,
+                                          id: snapshot.data!.id,
+                                          idPro: snapshot.data!.idPro,
+                                          weight: snapshot.data!.weight,
+                                          bodyLenght: snapshot.data!.bodyLenght,
+                                          heartGirth: snapshot.data!.heartGirth,
                                           hearLenghtSide: snapshot
-                                              .data.hearLenghtSide,
+                                              .data!.hearLenghtSide,
                                           hearLenghtRear: hlr,
                                           hearLenghtTop: snapshot
-                                              .data.hearLenghtTop,
+                                              .data!.hearLenghtTop,
                                           pixelReference: snapshot
-                                              .data.pixelReference,
+                                              .data!.pixelReference,
                                           distanceReference:
-                                              snapshot.data.distanceReference,
-                                          imageSide: snapshot.data.imageSide,
-                                          imageRear: snapshot.data.imageRear,
-                                          imageTop: snapshot.data.imageTop,
+                                              snapshot.data!.distanceReference,
+                                          imageSide: snapshot.data!.imageSide,
+                                          imageRear: snapshot.data!.imageRear,
+                                          imageTop: snapshot.data!.imageTop,
                                           date:
                                               DateTime.now().toIso8601String(),
-                                          note: snapshot.data.note));
+                                          note: snapshot.data!.note));
 
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => BlueSaveNextCamera(
-                                            catTimeID: snapshot.data.id,
-                                            server: widget.server,
-                                            blueConnection: widget.blueConnection,
+                                            catTimeID: snapshot.data!.id!,
+                                            server: widget.server!,
+                                            blueConnection: widget.blueConnection!,
                                           )));
                                 },
-                                title: "บันทึก")
+                                title: "บันทึก", pixelDistance: 10,)
                           ]),
                     );
                   } else {
@@ -167,7 +167,7 @@ class LineAndPositionPictureHG_Rear extends StatefulWidget {
   final String fileName;
   final VoidCallback onSelected;
   const LineAndPositionPictureHG_Rear(
-      {this.imgPath, this.fileName, this.onSelected});
+      {required this.imgPath,required this.fileName,required this.onSelected});
 
   @override
   LineAndPositionPictureHG_RearState createState() =>
@@ -183,8 +183,8 @@ class LineAndPositionPictureHG_RearState
 
   void onTapDown(BuildContext context, TapDownDetails details) {
     print('${details.globalPosition}');
-    final RenderBox box = context.findRenderObject();
-    final Offset localOffset = box.globalToLocal(details.globalPosition);
+    final RenderBox? box = context.findRenderObject() as RenderBox;
+    final Offset localOffset = box!.globalToLocal(details.globalPosition);
 
     setState(() {
       index++;

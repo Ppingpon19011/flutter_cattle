@@ -1,4 +1,4 @@
-// @dart=2.9
+
 
 import 'dart:io';
 import 'dart:math';
@@ -26,14 +26,14 @@ Positions pos = new Positions();
 CattleCalculation calculate = new CattleCalculation();
 
 class BluePictureRefSide extends StatefulWidget {
-  final File imageFile;
-  final String fileName;
-  final CatTimeModel catTime;
-  final BluetoothDevice server;
-  final bool blueConnection;
+  final File? imageFile;
+  final String? fileName;
+  final CatTimeModel? catTime;
+  final BluetoothDevice? server;
+  final bool? blueConnection;
 
   const BluePictureRefSide({
-    Key key,
+    Key? key,
     this.imageFile,
     this.fileName,
     this.catTime,
@@ -47,12 +47,12 @@ class BluePictureRefSide extends StatefulWidget {
 
 class _BluePictureRefSideState extends State<BluePictureRefSide> {
   bool showState = false;
-  TextEditingController _textFieldController = TextEditingController();
-  CatTimeHelper catTimeHelper;
-  Future<CatTimeModel> catTimeData;
+  final TextEditingController _textFieldController = TextEditingController();
+  late CatTimeHelper catTimeHelper;
+  late Future<CatTimeModel> catTimeData;
 
   loadData() async {
-    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTime.id);
+    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTime!.id!);
   }
 
   @override
@@ -80,8 +80,8 @@ class _BluePictureRefSideState extends State<BluePictureRefSide> {
                 body: Stack(
                   children: [
                     LineAndPositionPictureRef(
-                        imgPath: widget.imageFile.path,
-                        fileName: widget.fileName),
+                        imgPath: widget.imageFile!.path,
+                        fileName: widget.fileName!),
                     Center(
                       child: Padding(
                         padding: EdgeInsets.all(20),
@@ -94,29 +94,29 @@ class _BluePictureRefSideState extends State<BluePictureRefSide> {
 
                                     await catTimeHelper.updateCatTime(
                                         CatTimeModel(
-                                            id: snapshot.data.id,
-                                            idPro: snapshot.data.idPro,
-                                            weight: snapshot.data.weight,
+                                            id: snapshot.data!.id,
+                                            idPro: snapshot.data!.idPro,
+                                            weight: snapshot.data!.weight,
                                             bodyLenght:
-                                                snapshot.data.bodyLenght,
+                                                snapshot.data!.bodyLenght,
                                             heartGirth:
-                                                snapshot.data.heartGirth,
+                                                snapshot.data!.heartGirth,
                                             hearLenghtSide:
-                                                snapshot.data.hearLenghtSide,
+                                                snapshot.data!.hearLenghtSide,
                                             hearLenghtRear:
-                                                snapshot.data.hearLenghtRear,
+                                                snapshot.data!.hearLenghtRear,
                                             hearLenghtTop:
-                                                snapshot.data.hearLenghtTop,
+                                                snapshot.data!.hearLenghtTop,
                                             pixelReference:
                                                 pos.getPixelDistance(),
                                             distanceReference:
-                                                snapshot.data.distanceReference,
-                                            imageSide: snapshot.data.imageSide,
-                                            imageRear: snapshot.data.imageRear,
-                                            imageTop: snapshot.data.imageTop,
+                                                snapshot.data!.distanceReference,
+                                            imageSide: snapshot.data!.imageSide,
+                                            imageRear: snapshot.data!.imageRear,
+                                            imageTop: snapshot.data!.imageTop,
                                             date: DateTime.now()
                                                 .toIso8601String(),
-                                            note: snapshot.data.note));
+                                            note: snapshot.data!.note));
 
                                     loadData();
                                     Navigator.of(context)
@@ -130,7 +130,7 @@ class _BluePictureRefSideState extends State<BluePictureRefSide> {
                                                       widget.blueConnection,
                                                 )));
                                   },
-                                  title: "บันทึก"),
+                                  title: "บันทึก", pixelDistance: 10,),
                             ]),
                       ),
                     ),
@@ -167,9 +167,9 @@ class _BluePictureRefSideState extends State<BluePictureRefSide> {
 }
 
 class LineAndPositionPictureRef extends StatefulWidget {
-  final String imgPath;
-  final String fileName;
-  final VoidCallback onSelected;
+  final String? imgPath;
+  final String? fileName;
+  final VoidCallback? onSelected;
   const LineAndPositionPictureRef(
       {this.imgPath, this.fileName, this.onSelected});
 
@@ -186,8 +186,8 @@ class LineAndPositionPictureRefState extends State<LineAndPositionPictureRef> {
 
   void onTapDown(BuildContext context, TapDownDetails details) {
     print('${details.globalPosition}');
-    final RenderBox box = context.findRenderObject();
-    final Offset localOffset = box.globalToLocal(details.globalPosition);
+    final RenderBox? box = context.findRenderObject() as RenderBox;
+    final Offset localOffset = box!.globalToLocal(details.globalPosition);
 
     setState(() {
       index++;
@@ -227,8 +227,8 @@ class LineAndPositionPictureRefState extends State<LineAndPositionPictureRef> {
         new RotatedBox(
           quarterTurns: 1,
           child: PreviewScreen(
-            imgPath: widget.imgPath,
-            fileName: widget.fileName,
+            imgPath: widget.imgPath!,
+            fileName: widget.fileName!,
           ),
         ),
         //// Show position (x2,y2)

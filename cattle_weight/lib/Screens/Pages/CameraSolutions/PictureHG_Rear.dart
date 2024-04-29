@@ -1,4 +1,4 @@
-// @dart=2.9
+
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
@@ -24,11 +24,11 @@ Positions pos = new Positions();
 CattleCalculation calculate = new CattleCalculation();
 
 class PictureHG_Rear extends StatefulWidget {
-  final File imageFile;
-  final String fileName;
-  final CatTimeModel catTime;
+  final File? imageFile;
+  final String? fileName;
+  final CatTimeModel? catTime;
   const PictureHG_Rear({
-    Key key,
+    Key? key,
     this.imageFile,
     this.fileName,
     this.catTime,
@@ -40,11 +40,11 @@ class PictureHG_Rear extends StatefulWidget {
 
 class _PictureHG_RearState extends State<PictureHG_Rear> {
   bool showState = false;
-  CatTimeHelper catTimeHelper;
-  Future<CatTimeModel> catTimeData;
+  late CatTimeHelper catTimeHelper;
+  late Future<CatTimeModel> catTimeData;
 
   Future loadData() async {
-    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTime.id);
+    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTime!.id!);
   }
 
   @override
@@ -68,8 +68,8 @@ class _PictureHG_RearState extends State<PictureHG_Rear> {
         body: new Stack(
           children: [
             LineAndPositionPictureHG_Rear(
-              imgPath: widget.imageFile.path,
-              fileName: widget.fileName,
+              imgPath: widget.imageFile!.path,
+              fileName: widget.fileName!,
             ),
             Padding(
               padding: EdgeInsets.all(20),
@@ -86,41 +86,41 @@ class _PictureHG_RearState extends State<PictureHG_Rear> {
                                   // print(
                                   //     "Pixel Reference: ${snapshot.data.pixelReference}\tDistance Reference: ${snapshot.data.distanceReference}\nimageSide: ${snapshot.data.imageSide}");
                                   double hlr = calculate.distance(
-                                      snapshot.data.pixelReference,
-                                      snapshot.data.distanceReference,
+                                      snapshot.data!.pixelReference,
+                                      snapshot.data!.distanceReference,
                                       pos.getPixelDistance());
 
                                   print("Hear Lenght Rear: $hlr CM.");
 
                                   await catTimeHelper.updateCatTime(
                                       CatTimeModel(
-                                          id: snapshot.data.id,
-                                          idPro: snapshot.data.idPro,
-                                          weight: snapshot.data.weight,
-                                          bodyLenght: snapshot.data.bodyLenght,
-                                          heartGirth: snapshot.data.heartGirth,
+                                          id: snapshot.data!.id,
+                                          idPro: snapshot.data!.idPro,
+                                          weight: snapshot.data!.weight,
+                                          bodyLenght: snapshot.data!.bodyLenght,
+                                          heartGirth: snapshot.data!.heartGirth,
                                           hearLenghtSide: snapshot
-                                              .data.hearLenghtSide,
+                                              .data!.hearLenghtSide,
                                           hearLenghtRear: hlr,
                                           hearLenghtTop: snapshot
-                                              .data.hearLenghtTop,
+                                              .data!.hearLenghtTop,
                                           pixelReference: snapshot
-                                              .data.pixelReference,
+                                              .data!.pixelReference,
                                           distanceReference:
-                                              snapshot.data.distanceReference,
-                                          imageSide: snapshot.data.imageSide,
-                                          imageRear: snapshot.data.imageRear,
-                                          imageTop: snapshot.data.imageTop,
+                                              snapshot.data!.distanceReference,
+                                          imageSide: snapshot.data!.imageSide,
+                                          imageRear: snapshot.data!.imageRear,
+                                          imageTop: snapshot.data!.imageTop,
                                           date:
                                               DateTime.now().toIso8601String(),
-                                          note:  snapshot.data.note));
+                                          note:  snapshot.data!.note));
 
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => SaveNextCamera(
-                                            catTimeID: snapshot.data.id,
+                                            catTimeID: snapshot.data!.id!,
                                           )));
                                 },
-                                title: "บันทึก")
+                                title: "บันทึก", pixelDistance: 10,)
                           ]),
                     );
                   } else {
@@ -154,9 +154,9 @@ class _PictureHG_RearState extends State<PictureHG_Rear> {
 }
 
 class LineAndPositionPictureHG_Rear extends StatefulWidget {
-  final String imgPath;
-  final String fileName;
-  final VoidCallback onSelected;
+  final String? imgPath;
+  final String? fileName;
+  final VoidCallback? onSelected;
   const LineAndPositionPictureHG_Rear(
       {this.imgPath, this.fileName, this.onSelected});
 
@@ -174,8 +174,8 @@ class LineAndPositionPictureHG_RearState
 
   void onTapDown(BuildContext context, TapDownDetails details) {
     print('${details.globalPosition}');
-    final RenderBox box = context.findRenderObject();
-    final Offset localOffset = box.globalToLocal(details.globalPosition);
+    final RenderBox? box = context.findRenderObject() as RenderBox;
+    final Offset localOffset = box!.globalToLocal(details.globalPosition);
 
     setState(() {
       index++;
@@ -210,8 +210,8 @@ class LineAndPositionPictureHG_RearState
         new RotatedBox(
           quarterTurns: 1,
           child: PreviewScreen(
-            imgPath: widget.imgPath,
-            fileName: widget.fileName,
+            imgPath: widget.imgPath!,
+            fileName: widget.fileName!,
           ),
         ),
         //// Show position (x2,y2)

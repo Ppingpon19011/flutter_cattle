@@ -1,4 +1,4 @@
-// @dart=2.9
+
 import 'dart:io';
 import 'dart:math';
 
@@ -25,9 +25,9 @@ CattleCalculation calculate = new CattleCalculation();
 ImageNavidation line = new ImageNavidation();
 
 class SaveNextGallory extends StatefulWidget {
-  final int catTimeID;
+  final int? catTimeID;
   const SaveNextGallory({
-    Key key,
+    Key? key,
     this.catTimeID,
   }) : super(key: key);
 
@@ -36,10 +36,10 @@ class SaveNextGallory extends StatefulWidget {
 }
 
 class _SaveNextGalloryState extends State<SaveNextGallory> {
-  CatTimeHelper catTimeHelper;
-  CatImageHelper ImageHelper;
-  Future<CatTimeModel> catTimeData;
-  List<ImageModel> images;
+  late CatTimeHelper catTimeHelper;
+  late CatImageHelper ImageHelper;
+  late Future<CatTimeModel> catTimeData;
+  late List<ImageModel> images;
   ImageNavidation line = new ImageNavidation();
 
   @override
@@ -51,8 +51,8 @@ class _SaveNextGalloryState extends State<SaveNextGallory> {
   }
 
   refreshImages() {
-    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTimeID);
-    ImageHelper.getCatTimePhotos(widget.catTimeID).then((imgs) {
+    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTimeID!);
+    ImageHelper.getCatTimePhotos(widget.catTimeID!).then((imgs) {
       setState(() {
         images.clear();
         images.addAll(imgs);
@@ -93,27 +93,27 @@ class _SaveNextGalloryState extends State<SaveNextGallory> {
                       String imgString =
                           Utility.base64String(file.readAsBytesSync());
                       ImageModel photo = ImageModel(
-                          idPro: snapshot.data.idPro,
-                          idTime: snapshot.data.id,
+                          idPro: snapshot.data!.idPro,
+                          idTime: snapshot.data!.id!,
                           imagePath: imgString);
                       ImageHelper.save(photo);
 
                       catTimeHelper.updateCatTime(CatTimeModel(
-                          id: snapshot.data.id,
-                          idPro: snapshot.data.idPro,
-                          weight: snapshot.data.weight,
-                          bodyLenght: snapshot.data.bodyLenght,
-                          heartGirth: snapshot.data.heartGirth,
-                          hearLenghtSide: snapshot.data.hearLenghtSide,
-                          hearLenghtRear: snapshot.data.hearLenghtRear,
-                          hearLenghtTop: snapshot.data.hearLenghtTop,
-                          pixelReference: snapshot.data.pixelReference,
-                          distanceReference: snapshot.data.distanceReference,
-                          imageSide: snapshot.data.imageSide,
-                          imageRear: snapshot.data.imageRear,
+                          id: snapshot.data!.id,
+                          idPro: snapshot.data!.idPro,
+                          weight: snapshot.data!.weight,
+                          bodyLenght: snapshot.data!.bodyLenght,
+                          heartGirth: snapshot.data!.heartGirth,
+                          hearLenghtSide: snapshot.data!.hearLenghtSide,
+                          hearLenghtRear: snapshot.data!.hearLenghtRear,
+                          hearLenghtTop: snapshot.data!.hearLenghtTop,
+                          pixelReference: snapshot.data!.pixelReference,
+                          distanceReference: snapshot.data!.distanceReference,
+                          imageSide: snapshot.data!.imageSide,
+                          imageRear: snapshot.data!.imageRear,
                           imageTop: imgString,
                           date: DateTime.now().toIso8601String(),
-                          note: snapshot.data.note));
+                          note: snapshot.data!.note));
 
                       setState(() {
                         refreshImages();
@@ -166,8 +166,8 @@ class _SaveNextGalloryState extends State<SaveNextGallory> {
 
                 if (snapshot.hasData) {
                   double hg = calculate.calHeartGirth(
-                      snapshot.data.hearLenghtRear,
-                      snapshot.data.hearLenghtSide);
+                      snapshot.data!.hearLenghtRear,
+                      snapshot.data!.hearLenghtSide);
 
                   return Center(
                     child: ListView(
@@ -222,7 +222,7 @@ class _SaveNextGalloryState extends State<SaveNextGallory> {
                                     ),
                                   ),
                                   subtitle: Text(
-                                    "ความยาวลำตัว: ${snapshot.data.bodyLenght.toStringAsFixed(3)} ซม.",
+                                    "ความยาวลำตัว: ${snapshot.data!.bodyLenght.toStringAsFixed(3)} ซม.",
                                     style: TextStyle(
                                       fontSize: 28,
                                       fontWeight: FontWeight.bold,
@@ -240,36 +240,36 @@ class _SaveNextGalloryState extends State<SaveNextGallory> {
                                 MainButton(
                                     onSelected: () async {
                                       double weight = calculate.calWeight(
-                                          snapshot.data.bodyLenght, hg);
+                                          snapshot.data!.bodyLenght, hg);
 
                                       print("Cattle Weight: $weight Kg.");
 
                                       await catTimeHelper.updateCatTime(
                                           CatTimeModel(
-                                              id: snapshot.data.id,
-                                              idPro: snapshot.data.idPro,
+                                              id: snapshot.data!.id,
+                                              idPro: snapshot.data!.idPro,
                                               weight: weight,
                                               bodyLenght:
-                                                  snapshot.data.bodyLenght,
+                                                  snapshot.data!.bodyLenght,
                                               heartGirth: hg,
                                               hearLenghtSide:
-                                                  snapshot.data.hearLenghtSide,
+                                                  snapshot.data!.hearLenghtSide,
                                               hearLenghtRear:
-                                                  snapshot.data.hearLenghtRear,
+                                                  snapshot.data!.hearLenghtRear,
                                               hearLenghtTop:
-                                                  snapshot.data.hearLenghtTop,
+                                                  snapshot.data!.hearLenghtTop,
                                               pixelReference:
-                                                  snapshot.data.pixelReference,
+                                                  snapshot.data!.pixelReference,
                                               distanceReference: snapshot
-                                                  .data.distanceReference,
+                                                  .data!.distanceReference,
                                               imageSide:
-                                                  snapshot.data.imageSide,
+                                                  snapshot.data!.imageSide,
                                               imageRear:
-                                                  snapshot.data.imageRear,
-                                              imageTop: snapshot.data.imageTop,
+                                                  snapshot.data!.imageRear,
+                                              imageTop: snapshot.data!.imageTop,
                                               date: DateTime.now()
                                                   .toIso8601String(),
-                                              note: snapshot.data.note));
+                                              note: snapshot.data!.note));
                                       // Navigator.pushAndRemoveUntil จะไม่สามารถย้อนกลับมายัง Screen เดิมได้
                                       Navigator.pushAndRemoveUntil(
                                           context,
@@ -277,11 +277,11 @@ class _SaveNextGalloryState extends State<SaveNextGallory> {
                                               builder: (context) =>
                                                   CattleProfilPage(
                                                     catProID:
-                                                        snapshot.data.idPro,
+                                                        snapshot.data!.idPro,
                                                   )),
                                           (route) => false);
                                     },
-                                    title: "คำนวณน้ำหนัก"),
+                                    title: "คำนวณน้ำหนัก", pixelDistance: 10,),
                                 SizedBox(
                                   height: 10,
                                 ),

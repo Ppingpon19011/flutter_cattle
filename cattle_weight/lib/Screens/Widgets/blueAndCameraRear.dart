@@ -143,9 +143,9 @@ class _BlueAndCameraRear extends State<BlueAndCameraRear> {
                 (text) {
                   return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
                 }(_message.text.trim()),
-                style: TextStyle(color: Colors.white)),
-            padding: EdgeInsets.all(12.0),
-            margin: EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
+                style: const TextStyle(color: Colors.white)),
+            padding: const EdgeInsets.all(12.0),
+            margin: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
             width: 222.0,
             decoration: BoxDecoration(
                 color:
@@ -173,19 +173,19 @@ class _BlueAndCameraRear extends State<BlueAndCameraRear> {
                       onPressed: () {
                         _disconnect();
                       },
-                      icon: Icon(Icons.bluetooth_connected),
+                      icon: const Icon(Icons.bluetooth_connected),
                       color: Colors.white)
                   : IconButton(
                       onPressed: () {
                         _connect();
                       },
-                      icon: Icon(Icons.bluetooth_disabled),
+                      icon: const Icon(Icons.bluetooth_disabled),
                       color: Colors.white),
               IconButton(
                   onPressed: () {
                     Phoenix.rebirth(context);
                   },
-                  icon: Icon(Icons.home)),
+                  icon: const Icon(Icons.home)),
             ],
           )
         ],
@@ -269,10 +269,10 @@ class _BlueAndCameraRear extends State<BlueAndCameraRear> {
           messages.add(_Message(clientID, text));
         });
 
-        Future.delayed(Duration(milliseconds: 333)).then((_) {
+        Future.delayed(const Duration(milliseconds: 333)).then((_) {
           listScrollController.animateTo(
               listScrollController.position.maxScrollExtent,
-              duration: Duration(milliseconds: 333),
+              duration: const Duration(milliseconds: 333),
               curve: Curves.easeOut);
         });
       } catch (e) {
@@ -397,7 +397,7 @@ class _ShowBlueParamitorState extends State<ShowBlueParamitor> {
       padding: const EdgeInsets.fromLTRB(40, 10, 20, 5),
       child: widget.blueConnection
           ? RotationTransition(
-              turns: new AlwaysStoppedAnimation(90 / 360),
+              turns: const AlwaysStoppedAnimation(90 / 360),
               child: Opacity(
                 opacity: 0.6,
                 child: Container(
@@ -408,7 +408,7 @@ class _ShowBlueParamitorState extends State<ShowBlueParamitor> {
                     child: Text(
                       "Height = ${BM.getHeight()}\nDistance = ${BM.distance}\nAxisX = ${BM.axisY}\nAxisY = ${BM.axisY}\nAxisZ = ${BM.axisZ}",
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                   decoration: BoxDecoration(
@@ -426,11 +426,11 @@ class _ShowBlueParamitorState extends State<ShowBlueParamitor> {
                             width: 5.0,
                           ),
                     color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10)),
+                    borderRadius: const BorderRadius.only(
+                        topLeft: const Radius.circular(10),
+                        topRight: const Radius.circular(10),
+                        bottomLeft: const Radius.circular(10),
+                        bottomRight: const Radius.circular(10)),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.5),

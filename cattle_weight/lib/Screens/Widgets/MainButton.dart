@@ -1,4 +1,4 @@
-// @dart=2.9
+
 import 'package:flutter/material.dart';
 import 'package:cattle_weight/convetHex.dart';
 
@@ -9,7 +9,7 @@ class MainButton extends StatefulWidget {
   final VoidCallback onSelected;
   final String title;
   final double pixelDistance;
-   MainButton({this.onSelected, this.title,this.pixelDistance});
+   MainButton({required this.onSelected,required this.title,required this.pixelDistance});
 
   @override
   _MainButtonState createState() => _MainButtonState();

@@ -107,7 +107,8 @@ class _CatProScreenState extends State<CatProScreen> {
             //     icon: Icon(Icons.save)),
             IconButton(
                 onPressed: () {
-                  setState(() {
+                  setState(() { 
+                
                     loadData();
                   });
                 },

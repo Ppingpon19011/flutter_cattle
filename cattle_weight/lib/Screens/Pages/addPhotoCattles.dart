@@ -185,7 +185,7 @@ class _AddPhotoCattlesState extends State<AddPhotoCattles> {
                             //     )
                             ));
                       },
-                      title: "ถ่ายภาพ"),
+                      title: "ถ่ายภาพ", pixelDistance: 10,),
                   Center(
                       child: Image.asset("assets/images/photo01.png",
                           height: 240, width: 240, fit: BoxFit.cover)),
@@ -196,7 +196,7 @@ class _AddPhotoCattlesState extends State<AddPhotoCattles> {
                       onSelected: () {
                         GalloryImage();
                       },
-                      title: "นำเข้าภาพ"),
+                      title: "นำเข้าภาพ", pixelDistance: 10,),
                 ],
               ),
               backgroundColor: Color(hex.Blue()),

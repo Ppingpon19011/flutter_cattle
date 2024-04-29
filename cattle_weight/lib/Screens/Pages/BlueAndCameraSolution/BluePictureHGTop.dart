@@ -1,4 +1,4 @@
-// @dart=2.9
+
 import 'package:camera/camera.dart';
 import 'package:cattle_weight/Camera/cameraRear_screen.dart';
 import 'package:cattle_weight/DataBase/catTime_handler.dart';
@@ -24,9 +24,9 @@ CattleCalculation calculate = new CattleCalculation();
 
 class BluePictureHGTop extends StatefulWidget {
   final catTimeID;
-  final String imgPath;
-  final String fileName;
-  const BluePictureHGTop({Key key, this.imgPath, this.fileName, this.catTimeID})
+  final String? imgPath;
+  final String? fileName;
+  const BluePictureHGTop({Key ?key, this.imgPath, this.fileName, this.catTimeID})
       : super(key: key);
 
   @override
@@ -35,8 +35,8 @@ class BluePictureHGTop extends StatefulWidget {
 
 class _BluePictureHGTopState extends State<BluePictureHGTop> {
   bool showState = false;
-  CatTimeHelper catTimeHelper;
-  Future<CatTimeModel> catTimeData;
+  late CatTimeHelper catTimeHelper;
+  late Future<CatTimeModel> catTimeData;
   ImageNavidation line = new ImageNavidation();
 
   Future loadData() async {
@@ -64,8 +64,8 @@ class _BluePictureHGTopState extends State<BluePictureHGTop> {
         body: new Stack(
           children: [
             LineAndPositionPictureHGTop(
-              imgPath: widget.imgPath,
-              fileName: widget.fileName,
+              imgPath: widget.imgPath!,
+              fileName: widget.fileName!,
             ),
             Padding(
               padding: EdgeInsets.all(20),
@@ -80,52 +80,52 @@ class _BluePictureHGTopState extends State<BluePictureHGTop> {
                               MainButton(
                                   onSelected: () async {
                                     double hlt = calculate.distance(
-                                        snapshot.data.pixelReference,
-                                        snapshot.data.distanceReference,
+                                        snapshot.data!.pixelReference,
+                                        snapshot.data!.distanceReference,
                                         pos.getPixelDistance());
 
                                     double newHG = calculate.calHeartGirth(
-                                        hlt, snapshot.data.hearLenghtRear);
+                                        hlt, snapshot.data!.hearLenghtRear);
 
                                     double weight = calculate.calWeight(
-                                        snapshot.data.bodyLenght, newHG);
+                                        snapshot.data!.bodyLenght, newHG);
 
                                     // print("Hear Lenght Top: $hlt CM.\tCattle Weight: $weight Kg.");
 
                                     await catTimeHelper.updateCatTime(
                                         CatTimeModel(
-                                            id: snapshot.data.id,
-                                            idPro: snapshot.data.idPro,
+                                            id: snapshot.data!.id,
+                                            idPro: snapshot.data!.idPro,
                                             weight: weight,
                                             bodyLenght:
-                                                snapshot.data.bodyLenght,
+                                                snapshot.data!.bodyLenght,
                                             heartGirth:
                                                 newHG,
                                             hearLenghtSide:
-                                                snapshot.data.hearLenghtSide,
+                                                snapshot.data!.hearLenghtSide,
                                             hearLenghtRear:
-                                                snapshot.data.hearLenghtRear,
+                                                snapshot.data!.hearLenghtRear,
                                             hearLenghtTop: hlt,
                                             pixelReference:
-                                                snapshot.data.pixelReference,
+                                                snapshot.data!.pixelReference,
                                             distanceReference:
-                                                snapshot.data.distanceReference,
-                                            imageSide: snapshot.data.imageSide,
-                                            imageRear: snapshot.data.imageRear,
-                                            imageTop: snapshot.data.imageTop,
-                                            date: snapshot.data.date,
-                                            note: snapshot.data.note));
+                                                snapshot.data!.distanceReference,
+                                            imageSide: snapshot.data!.imageSide,
+                                            imageRear: snapshot.data!.imageRear,
+                                            imageTop: snapshot.data!.imageTop,
+                                            date: snapshot.data!.date,
+                                            note: snapshot.data!.note));
 
                                     // Navigator.pushAndRemoveUntil จะไม่สามารถย้อนกลับมายัง Screen เดิมได้
                                     Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => CattleProfilPage(
-                                                  catProID: snapshot.data.idPro,
+                                                  catProID: snapshot.data!.idPro,
                                                 )),
                                         (route) => false);
                                   },
-                                  title: "บันทึก"),
+                                  title: "บันทึก", pixelDistance: 10,),
                             ]),
                       );
                     } else {
@@ -159,9 +159,9 @@ class _BluePictureHGTopState extends State<BluePictureHGTop> {
 }
 
 class LineAndPositionPictureHGTop extends StatefulWidget {
-  final String imgPath;
-  final String fileName;
-  final VoidCallback onSelected;
+  final String? imgPath;
+  final String? fileName;
+  final VoidCallback? onSelected;
   const LineAndPositionPictureHGTop(
       {this.imgPath, this.fileName, this.onSelected});
 
@@ -179,8 +179,8 @@ class LineAndPositionPictureHGTopState
 
   void onTapDown(BuildContext context, TapDownDetails details) {
     print('${details.globalPosition}');
-    final RenderBox box = context.findRenderObject();
-    final Offset localOffset = box.globalToLocal(details.globalPosition);
+    final RenderBox? box = context.findRenderObject() as RenderBox;
+    final Offset localOffset = box!.globalToLocal(details.globalPosition);
 
     setState(() {
       index++;
@@ -216,8 +216,8 @@ class LineAndPositionPictureHGTopState
         new RotatedBox(
           quarterTurns: 1,
           child: PreviewScreen(
-            imgPath: widget.imgPath,
-            fileName: widget.fileName,
+            imgPath: widget.imgPath!,
+            fileName: widget.fileName!,
           ),
         ),
         //// Show position (x2,y2)
