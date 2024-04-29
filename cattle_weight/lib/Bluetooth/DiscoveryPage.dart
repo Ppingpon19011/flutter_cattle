@@ -56,6 +56,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
         FlutterBluetoothSerial.instance.startDiscovery().listen((r) {
       setState(() {
         results.add(r);
+        
       });
     });
 

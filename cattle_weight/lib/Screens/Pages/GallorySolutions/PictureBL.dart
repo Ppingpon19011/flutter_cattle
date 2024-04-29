@@ -1,4 +1,4 @@
-// @dart=2.9
+
 import 'dart:io';
 
 import 'package:camera/camera.dart';
@@ -31,10 +31,10 @@ Positions pos = new Positions();
 CattleCalculation calculate = new CattleCalculation();
 
 class GalloryBL extends StatefulWidget {
-  final int catTimeID;
-  final String imgPath;
-  final String fileName;
-  const GalloryBL({Key key, this.imgPath, this.fileName, this.catTimeID})
+  final int? catTimeID;
+  final String? imgPath;
+  final String? fileName;
+  const GalloryBL({Key? key, this.imgPath, this.fileName, this.catTimeID})
       : super(key: key);
 
   @override
@@ -43,10 +43,10 @@ class GalloryBL extends StatefulWidget {
 
 class _GalloryBLState extends State<GalloryBL> {
   bool showState = false;
-  CatTimeHelper catTimeHelper;
-  CatImageHelper ImageHelper;
-  Future<CatTimeModel> catTimeData;
-  List<ImageModel> images;
+  late CatTimeHelper catTimeHelper;
+  late CatImageHelper ImageHelper;
+  late Future<CatTimeModel> catTimeData;
+  late List<ImageModel> images;
   ImageNavidation line = new ImageNavidation();
 
   @override
@@ -58,8 +58,8 @@ class _GalloryBLState extends State<GalloryBL> {
   }
 
   refreshImages() {
-    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTimeID);
-    ImageHelper.getCatTimePhotos(widget.catTimeID).then((imgs) {
+    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTimeID!);
+    ImageHelper.getCatTimePhotos(widget.catTimeID!).then((imgs) {
       setState(() {
         images.clear();
         images.addAll(imgs);
@@ -80,8 +80,8 @@ class _GalloryBLState extends State<GalloryBL> {
         body: new Stack(
           children: [
             LaPGalloryBL(
-              imgPath: widget.imgPath,
-              fileName: widget.fileName,
+              imgPath: widget.imgPath!,
+              fileName: widget.fileName!,
             ),
             Padding(
               padding: EdgeInsets.all(20),
@@ -104,35 +104,35 @@ class _GalloryBLState extends State<GalloryBL> {
                           String imgString =
                               Utility.base64String(file.readAsBytesSync());
                           ImageModel photo = ImageModel(
-                              idPro: snapshot.data.idPro,
-                              idTime: snapshot.data.id,
+                              idPro: snapshot.data!.idPro,
+                              idTime: snapshot.data!.id!,
                               imagePath: imgString);
                           ImageHelper.save(photo);
 
                           double bl = calculate.distance(
-                              snapshot.data.pixelReference,
-                              snapshot.data.distanceReference,
+                              snapshot.data!.pixelReference,
+                              snapshot.data!.distanceReference,
                               pos.getPixelDistance());
 
                           print("Body Lenght: $bl CM.");
 
                           catTimeHelper.updateCatTime(CatTimeModel(
-                              id: snapshot.data.id,
-                              idPro: snapshot.data.idPro,
-                              weight: snapshot.data.weight,
+                              id: snapshot.data!.id,
+                              idPro: snapshot.data!.idPro,
+                              weight: snapshot.data!.weight,
                               bodyLenght: bl,
-                              heartGirth: snapshot.data.heartGirth,
-                              hearLenghtSide: snapshot.data.hearLenghtSide,
-                              hearLenghtRear: snapshot.data.hearLenghtRear,
-                              hearLenghtTop: snapshot.data.hearLenghtTop,
-                              pixelReference: snapshot.data.pixelReference,
+                              heartGirth: snapshot.data!.heartGirth,
+                              hearLenghtSide: snapshot.data!.hearLenghtSide,
+                              hearLenghtRear: snapshot.data!.hearLenghtRear,
+                              hearLenghtTop: snapshot.data!.hearLenghtTop,
+                              pixelReference: snapshot.data!.pixelReference,
                               distanceReference:
-                                  snapshot.data.distanceReference,
-                              imageSide: snapshot.data.imageSide,
+                                  snapshot.data!.distanceReference,
+                              imageSide: snapshot.data!.imageSide,
                               imageRear: imgString,
-                              imageTop: snapshot.data.imageTop,
-                              date: snapshot.data.date,
-                              note: snapshot.data.note));
+                              imageTop: snapshot.data!.imageTop,
+                              date: snapshot.data!.date,
+                              note: snapshot.data!.note));
 
                           setState(() {
                             refreshImages();
@@ -142,7 +142,7 @@ class _GalloryBLState extends State<GalloryBL> {
                               builder: (context) => GalloryRefRear(
                                   imageFile: file,
                                   fileName: file.path,
-                                  catTimeID: snapshot.data.id)));
+                                  catTimeID: snapshot.data!.id!)));
                         }
                       });
                     }
@@ -192,7 +192,7 @@ class _GalloryBLState extends State<GalloryBL> {
                                   onSelected: () async {
                                     GalloryImage();
                                   },
-                                  title: "บันทึก"),
+                                  title: "บันทึก", pixelDistance: 10,),
                             ]),
                       );
                     } else {
@@ -226,9 +226,9 @@ class _GalloryBLState extends State<GalloryBL> {
 }
 
 class LaPGalloryBL extends StatefulWidget {
-  final String imgPath;
-  final String fileName;
-  final VoidCallback onSelected;
+  final String? imgPath;
+  final String? fileName;
+  final VoidCallback? onSelected;
   const LaPGalloryBL({this.imgPath, this.fileName, this.onSelected});
 
   @override
@@ -243,8 +243,8 @@ class LaPGalloryBLState extends State<LaPGalloryBL> {
 
   void onTapDown(BuildContext context, TapDownDetails details) {
     print('${details.globalPosition}');
-    final RenderBox box = context.findRenderObject();
-    final Offset localOffset = box.globalToLocal(details.globalPosition);
+    final RenderBox? box = context.findRenderObject() as RenderBox;
+    final Offset localOffset = box!.globalToLocal(details.globalPosition);
 
     setState(() {
       index++;
@@ -280,8 +280,8 @@ class LaPGalloryBLState extends State<LaPGalloryBL> {
         new RotatedBox(
           quarterTurns: 1,
           child: PreviewScreen(
-            imgPath: widget.imgPath,
-            fileName: widget.fileName,
+            imgPath: widget.imgPath!,
+            fileName: widget.fileName!,
           ),
         ),
         //// Show position (x2,y2)

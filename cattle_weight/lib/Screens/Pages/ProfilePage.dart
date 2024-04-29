@@ -36,7 +36,7 @@ class _CattleProfilPageState extends State<CattleProfilPage> {
     // TODO: implement initState
     super.initState();
 
-    catProHelper = new CatProHelper();
+    catProHelper = CatProHelper();
 
     loadData();
     // NotesModel(title: "User00",age: 22,description: "Default user",email: "User@exemple.com");
@@ -69,16 +69,16 @@ class _CattleProfilPageState extends State<CattleProfilPage> {
                         title: catPro.data!.name, catProID: catPro.data!.id!),
                   ],
                 ),
-                bottomNavigationBar: TabBar(
-                  tabs: [
+                bottomNavigationBar: const TabBar(
+                  tabs: const [
                     // ตั้งค่าเมนูภายใน  TapBar View
-                    Tab(
-                        icon: Icon(
+                    const Tab(
+                        icon: const Icon(
                       Icons.list,
                       size: 48,
                     )),
-                    Tab(
-                      icon: Icon(
+                    const Tab(
+                      icon: const Icon(
                         Icons.bar_chart_rounded,
                         size: 48,
                       ),
@@ -88,7 +88,7 @@ class _CattleProfilPageState extends State<CattleProfilPage> {
               ),
             );
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         });
   }

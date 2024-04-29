@@ -1,4 +1,3 @@
-// @dart=2.9
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
@@ -21,11 +20,11 @@ Positions pos = new Positions();
 CattleCalculation calculate = new CattleCalculation();
 
 class GalloryRefSide extends StatefulWidget {
-  final File imageFile;
-  final String fileName;
-  final CatTimeModel catTime;
+  final File? imageFile;
+  final String? fileName;
+  final CatTimeModel? catTime;
   const GalloryRefSide({
-    Key key,
+    Key? key,
     this.imageFile,
     this.fileName,
     this.catTime,
@@ -38,11 +37,11 @@ class GalloryRefSide extends StatefulWidget {
 class _GalloryRefSideState extends State<GalloryRefSide> {
   bool showState = false;
   TextEditingController _textFieldController = TextEditingController();
-  CatTimeHelper catTimeHelper;
-  Future<CatTimeModel> catTimeData;
+  late CatTimeHelper catTimeHelper;
+  late Future<CatTimeModel> catTimeData;
 
   loadData() async {
-    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTime.id);
+    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTime!.id!);
   }
 
   @override
@@ -85,7 +84,7 @@ class _GalloryRefSideState extends State<GalloryRefSide> {
                             padding: const EdgeInsets.all(8.0),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: Colors.red,
+                                  backgroundColor: Colors.red,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 28, vertical: 16),
                                   textStyle: TextStyle(
@@ -94,14 +93,17 @@ class _GalloryRefSideState extends State<GalloryRefSide> {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: const Text('ยกเลิก',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
+                              child: const Text('ยกเลิก',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
+                                  backgroundColor: Colors.green,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 28, vertical: 16),
                                   textStyle: TextStyle(
@@ -110,24 +112,24 @@ class _GalloryRefSideState extends State<GalloryRefSide> {
                               onPressed: () async {
                                 // print("${_textFieldController.text}");
                                 await catTimeHelper.updateCatTime(CatTimeModel(
-                                    id: snapshot.data.id,
-                                    idPro: snapshot.data.idPro,
-                                    weight: snapshot.data.weight,
-                                    bodyLenght: snapshot.data.bodyLenght,
-                                    heartGirth: snapshot.data.heartGirth,
+                                    id: snapshot.data!.id,
+                                    idPro: snapshot.data!.idPro,
+                                    weight: snapshot.data!.weight,
+                                    bodyLenght: snapshot.data!.bodyLenght,
+                                    heartGirth: snapshot.data!.heartGirth,
                                     hearLenghtSide:
-                                        snapshot.data.hearLenghtSide,
+                                        snapshot.data!.hearLenghtSide,
                                     hearLenghtRear:
-                                        snapshot.data.hearLenghtRear,
-                                    hearLenghtTop: snapshot.data.hearLenghtTop,
+                                        snapshot.data!.hearLenghtRear,
+                                    hearLenghtTop: snapshot.data!.hearLenghtTop,
                                     pixelReference: pos.getPixelDistance(),
                                     distanceReference:
                                         double.parse(_textFieldController.text),
-                                    imageSide: snapshot.data.imageSide,
-                                    imageRear: snapshot.data.imageRear,
-                                    imageTop: snapshot.data.imageTop,
+                                    imageSide: snapshot.data!.imageSide,
+                                    imageRear: snapshot.data!.imageRear,
+                                    imageTop: snapshot.data!.imageTop,
                                     date: DateTime.now().toIso8601String(),
-                                    note: snapshot.data.note));
+                                    note: snapshot.data!.note));
 
                                 loadData();
                                 Navigator.of(context).push(MaterialPageRoute(
@@ -137,13 +139,21 @@ class _GalloryRefSideState extends State<GalloryRefSide> {
                                           catTime: widget.catTime,
                                         )));
                               },
-                              child: const Text('บันทึก',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
+                              child: const Text('บันทึก',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
                             ),
                           ),
                         ],
                       );
                     } else {
-                      return Center(child: Container(child: Text("กรุณาเปลี่ยนรูปด้านข้างโค",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold)),));
+                      return Center(
+                          child: Container(
+                        child: Text("กรุณาเปลี่ยนรูปด้านข้างโค",
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold)),
+                      ));
                     }
                   })
             ],
@@ -151,8 +161,8 @@ class _GalloryRefSideState extends State<GalloryRefSide> {
         });
   }
 
-  String codeDialog;
-  String valueText;
+  late String codeDialog;
+  late String valueText;
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +177,7 @@ class _GalloryRefSideState extends State<GalloryRefSide> {
         body: Stack(
           children: [
             LaPGalloryRefSide(
-                imgPath: widget.imageFile.path, fileName: widget.fileName),
+                imgPath: widget.imageFile!.path, fileName: widget.fileName!),
             Center(
               child: Padding(
                 padding: EdgeInsets.all(20),
@@ -175,12 +185,11 @@ class _GalloryRefSideState extends State<GalloryRefSide> {
                     Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                   MainButton(
                       onSelected: () async {
-
                         _displayTextInputDialog(
                           context,
                         );
                       },
-                      title: "บันทึก"),
+                      title: "บันทึก", pixelDistance: 10,),
                 ]),
               ),
             ),
@@ -210,15 +219,13 @@ class _GalloryRefSideState extends State<GalloryRefSide> {
 }
 
 class LaPGalloryRefSide extends StatefulWidget {
-  final String imgPath;
-  final String fileName;
-  final VoidCallback onSelected;
-  const LaPGalloryRefSide(
-      {this.imgPath, this.fileName, this.onSelected});
+  final String? imgPath;
+  final String? fileName;
+  final VoidCallback? onSelected;
+  const LaPGalloryRefSide({this.imgPath, this.fileName, this.onSelected});
 
   @override
-  LaPGalloryRefSideState createState() =>
-      new LaPGalloryRefSideState();
+  LaPGalloryRefSideState createState() => new LaPGalloryRefSideState();
 }
 
 class LaPGalloryRefSideState extends State<LaPGalloryRefSide> {
@@ -229,8 +236,8 @@ class LaPGalloryRefSideState extends State<LaPGalloryRefSide> {
 
   void onTapDown(BuildContext context, TapDownDetails details) {
     print('${details.globalPosition}');
-    final RenderBox box = context.findRenderObject();
-    final Offset localOffset = box.globalToLocal(details.globalPosition);
+    final RenderBox? box = context.findRenderObject() as RenderBox;
+    final Offset localOffset = box!.globalToLocal(details.globalPosition);
 
     setState(() {
       index++;
@@ -238,7 +245,8 @@ class LaPGalloryRefSideState extends State<LaPGalloryRefSide> {
       positionsY.add(localOffset.dy);
       // Distance calculation
       positionsX.length % 2 == 0
-          ?  pixelDistance = calculate.pixelDistance(positionsX[index - 1], positionsY[index - 1], positionsX[index], positionsY[index])
+          ? pixelDistance = calculate.pixelDistance(positionsX[index - 1],
+              positionsY[index - 1], positionsX[index], positionsY[index])
           // pixelDistance = sqrt(((positionsX[index] - positionsX[index - 1]) *
           //         (positionsX[index] - positionsX[index - 1])) +
           //     ((positionsY[index] - positionsY[index - 1]) *
@@ -269,8 +277,8 @@ class LaPGalloryRefSideState extends State<LaPGalloryRefSide> {
         new RotatedBox(
           quarterTurns: 1,
           child: PreviewScreen(
-            imgPath: widget.imgPath,
-            fileName: widget.fileName,
+            imgPath: widget.imgPath!,
+            fileName: widget.fileName!,
           ),
         ),
         //// Show position (x2,y2)

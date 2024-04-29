@@ -1,4 +1,4 @@
-// @dart=2.9
+
 import 'dart:async';
 import 'dart:io';
 import 'package:camera/camera.dart';

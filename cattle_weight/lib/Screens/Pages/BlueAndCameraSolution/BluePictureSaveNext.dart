@@ -1,4 +1,4 @@
-// @dart=2.9
+
 import 'dart:io';
 import 'dart:math';
 
@@ -15,7 +15,7 @@ import 'package:cattle_weight/model/imageNavidation.dart';
 import 'package:cattle_weight/model/utility.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cattle_weight/Screens/Pages/ViewPage.dart';
+import 'package:cattle_weight/Screens/Pages/viewPage.dart';
 import 'package:cattle_weight/Screens/Widgets/MainButton.dart';
 import 'package:cattle_weight/convetHex.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
@@ -25,11 +25,11 @@ CattleCalculation calculate = new CattleCalculation();
 ImageNavidation line = new ImageNavidation();
 
 class BlueSaveNextCamera extends StatefulWidget {
-  final int catTimeID;
-  final BluetoothDevice server;
-  final bool blueConnection;
+  final int? catTimeID;
+  final BluetoothDevice? server;
+  final bool? blueConnection;
   const BlueSaveNextCamera(
-      {Key key, this.catTimeID, this.server, this.blueConnection})
+      {Key? key, this.catTimeID, this.server, this.blueConnection})
       : super(key: key);
 
   @override
@@ -37,11 +37,11 @@ class BlueSaveNextCamera extends StatefulWidget {
 }
 
 class _BlueSaveNextCameraState extends State<BlueSaveNextCamera> {
-  CatTimeHelper catTimeHelper;
-  Future<CatTimeModel> catTimeData;
+  late CatTimeHelper catTimeHelper;
+  late Future<CatTimeModel> catTimeData;
 
   Future loadData() async {
-    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTimeID);
+    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTimeID!);
   }
 
   @override
@@ -71,8 +71,8 @@ class _BlueSaveNextCameraState extends State<BlueSaveNextCamera> {
               builder: (context, AsyncSnapshot<CatTimeModel> snapshot) {
                 if (snapshot.hasData) {
                   double hg = calculate.calHeartGirth(
-                      snapshot.data.hearLenghtRear,
-                      snapshot.data.hearLenghtSide);
+                      snapshot.data!.hearLenghtRear,
+                      snapshot.data!.hearLenghtSide);
 
                   return Center(
                     child: ListView(
@@ -127,7 +127,7 @@ class _BlueSaveNextCameraState extends State<BlueSaveNextCamera> {
                                     ),
                                   ),
                                   subtitle: Text(
-                                    "ความยาวลำตัว: ${snapshot.data.bodyLenght.toStringAsFixed(3)} ซม.",
+                                    "ความยาวลำตัว: ${snapshot.data!.bodyLenght.toStringAsFixed(3)} ซม.",
                                     style: TextStyle(
                                       fontSize: 28,
                                       fontWeight: FontWeight.bold,
@@ -145,36 +145,36 @@ class _BlueSaveNextCameraState extends State<BlueSaveNextCamera> {
                                 MainButton(
                                     onSelected: () async {
                                       double weight = calculate.calWeight(
-                                          snapshot.data.bodyLenght, hg);
+                                          snapshot.data!.bodyLenght, hg);
 
                                       print("Cattle Weight: $weight Kg.");
 
                                       await catTimeHelper.updateCatTime(
                                           CatTimeModel(
-                                              id: snapshot.data.id,
-                                              idPro: snapshot.data.idPro,
+                                              id: snapshot.data!.id,
+                                              idPro: snapshot.data!.idPro,
                                               weight: weight,
                                               bodyLenght:
-                                                  snapshot.data.bodyLenght,
+                                                  snapshot.data!.bodyLenght,
                                               heartGirth: hg,
                                               hearLenghtSide:
-                                                  snapshot.data.hearLenghtSide,
+                                                  snapshot.data!.hearLenghtSide,
                                               hearLenghtRear:
-                                                  snapshot.data.hearLenghtRear,
+                                                  snapshot.data!.hearLenghtRear,
                                               hearLenghtTop:
-                                                  snapshot.data.hearLenghtTop,
+                                                  snapshot.data!.hearLenghtTop,
                                               pixelReference:
-                                                  snapshot.data.pixelReference,
+                                                  snapshot.data!.pixelReference,
                                               distanceReference: snapshot
-                                                  .data.distanceReference,
+                                                  .data!.distanceReference,
                                               imageSide:
-                                                  snapshot.data.imageSide,
+                                                  snapshot.data!.imageSide,
                                               imageRear:
-                                                  snapshot.data.imageRear,
-                                              imageTop: snapshot.data.imageTop,
+                                                  snapshot.data!.imageRear,
+                                              imageTop: snapshot.data!.imageTop,
                                               date: DateTime.now()
                                                   .toIso8601String(),
-                                              note: snapshot.data.note));
+                                              note: snapshot.data!.note));
                                       // Navigator.pushAndRemoveUntil จะไม่สามารถย้อนกลับมายัง Screen เดิมได้
                                       Navigator.pushAndRemoveUntil(
                                           context,
@@ -182,11 +182,11 @@ class _BlueSaveNextCameraState extends State<BlueSaveNextCamera> {
                                               builder: (context) =>
                                                   CattleProfilPage(
                                                     catProID:
-                                                        snapshot.data.idPro,
+                                                        snapshot.data!.idPro,
                                                   )),
                                           (route) => false);
                                     },
-                                    title: "คำนวณน้ำหนัก"),
+                                    title: "คำนวณน้ำหนัก", pixelDistance: 10,),
                                 SizedBox(
                                   height: 10,
                                 ),

@@ -131,7 +131,7 @@ class _BlueMainPage extends State<BlueMainPage> {
                           catTime: widget.catTime,
                         )));
               },
-              title: "ไม่เชื่อมต่ออุปกรณ์"),
+              title: "ไม่เชื่อมต่ออุปกรณ์", pixelDistance: 10,),
         ),
       ),
     );

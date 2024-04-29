@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:cattle_weight/convetHex.dart';
-import 'package:cattle_weight/Screens/Pages/ViewPage.dart';
+import 'package:cattle_weight/Screens/Pages/viewPage.dart';
 import 'package:cattle_weight/DataBase/CattleDB.dart';
 import 'package:flutter/cupertino.dart';
 

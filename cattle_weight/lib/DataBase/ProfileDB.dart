@@ -1,4 +1,4 @@
-class ProfileDB{
+  class ProfileDB{
   late int cattleNumber;
   late String cattleName;
   late String gender;

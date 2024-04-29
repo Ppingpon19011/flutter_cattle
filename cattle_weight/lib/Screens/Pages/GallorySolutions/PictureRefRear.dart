@@ -1,4 +1,4 @@
-// @dart=2.9
+
 import 'dart:io';
 import 'dart:math';
 
@@ -21,11 +21,11 @@ Positions pos = new Positions();
 CattleCalculation calculate = new CattleCalculation();
 
 class GalloryRefRear extends StatefulWidget {
-  final File imageFile;
-  final String fileName;
-  final int catTimeID;
+  final File? imageFile;
+  final String? fileName;
+  final int? catTimeID;
   const GalloryRefRear({
-    Key key,
+    Key? key,
     this.imageFile,
     this.fileName,
     this.catTimeID,
@@ -38,11 +38,11 @@ class GalloryRefRear extends StatefulWidget {
 class _GalloryRefRearState extends State<GalloryRefRear> {
   bool showState = false;
   TextEditingController _textFieldController = TextEditingController();
-  CatTimeHelper catTimeHelper;
-  Future<CatTimeModel> catTimeData;
+  late CatTimeHelper catTimeHelper;
+  late Future<CatTimeModel> catTimeData;
 
   loadData() async {
-    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTimeID);
+    catTimeData = catTimeHelper.getCatTimeWithCatTimeID(widget.catTimeID!);
   }
 
   @override
@@ -85,7 +85,7 @@ class _GalloryRefRearState extends State<GalloryRefRear> {
                             padding: const EdgeInsets.all(8.0),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: Colors.red,
+                                  backgroundColor: Colors.red,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 28, vertical: 16),
                                   textStyle: TextStyle(
@@ -101,7 +101,7 @@ class _GalloryRefRearState extends State<GalloryRefRear> {
                             padding: const EdgeInsets.all(8.0),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
+                                  backgroundColor: Colors.green,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 28, vertical: 16),
                                   textStyle: TextStyle(
@@ -109,24 +109,24 @@ class _GalloryRefRearState extends State<GalloryRefRear> {
                                       fontWeight: FontWeight.bold)),
                               onPressed: () async {
                                 await catTimeHelper.updateCatTime(CatTimeModel(
-                                    id: snapshot.data.id,
-                                    idPro: snapshot.data.idPro,
-                                    weight: snapshot.data.weight,
-                                    bodyLenght: snapshot.data.bodyLenght,
-                                    heartGirth: snapshot.data.heartGirth,
+                                    id: snapshot.data!.id,
+                                    idPro: snapshot.data!.idPro,
+                                    weight: snapshot.data!.weight,
+                                    bodyLenght: snapshot.data!.bodyLenght,
+                                    heartGirth: snapshot.data!.heartGirth,
                                     hearLenghtSide:
-                                        snapshot.data.hearLenghtSide,
+                                        snapshot.data!.hearLenghtSide,
                                     hearLenghtRear:
-                                        snapshot.data.hearLenghtRear,
-                                    hearLenghtTop: snapshot.data.hearLenghtTop,
+                                        snapshot.data!.hearLenghtRear,
+                                    hearLenghtTop: snapshot.data!.hearLenghtTop,
                                     pixelReference: pos.getPixelDistance(),
                                     distanceReference:
                                         double.parse(_textFieldController.text),
-                                    imageSide: snapshot.data.imageSide,
-                                    imageRear: snapshot.data.imageRear,
-                                    imageTop: snapshot.data.imageTop,
+                                    imageSide: snapshot.data!.imageSide,
+                                    imageRear: snapshot.data!.imageRear,
+                                    imageTop: snapshot.data!.imageTop,
                                     date: DateTime.now().toIso8601String(),
-                                    note: snapshot.data.note));
+                                    note: snapshot.data!.note));
 
                                 loadData();
                                 Navigator.of(context).push(MaterialPageRoute(
@@ -150,8 +150,8 @@ class _GalloryRefRearState extends State<GalloryRefRear> {
         });
   }
 
-  String codeDialog;
-  String valueText;
+  late String codeDialog;
+  late String valueText;
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +166,7 @@ class _GalloryRefRearState extends State<GalloryRefRear> {
         body: Stack(
           children: [
             LaPGalloryRefRear(
-                imgPath: widget.imageFile.path, fileName: widget.fileName),
+                imgPath: widget.imageFile!.path, fileName: widget.fileName!),
             Center(
               child: Padding(
                 padding: EdgeInsets.all(20),
@@ -180,7 +180,7 @@ class _GalloryRefRearState extends State<GalloryRefRear> {
                           context,
                         );
                       },
-                      title: "บันทึก"),
+                      title: "บันทึก", pixelDistance: 10,),
                 ]),
               ),
             ),
@@ -210,9 +210,9 @@ class _GalloryRefRearState extends State<GalloryRefRear> {
 }
 
 class LaPGalloryRefRear extends StatefulWidget {
-  final String imgPath;
-  final String fileName;
-  final VoidCallback onSelected;
+  final String? imgPath;
+  final String? fileName;
+  final VoidCallback? onSelected;
   const LaPGalloryRefRear(
       {this.imgPath, this.fileName, this.onSelected});
 
@@ -229,8 +229,8 @@ class LaPGalloryRefRearState extends State<LaPGalloryRefRear> {
 
   void onTapDown(BuildContext context, TapDownDetails details) {
     print('${details.globalPosition}');
-    final RenderBox box = context.findRenderObject();
-    final Offset localOffset = box.globalToLocal(details.globalPosition);
+    final RenderBox? box = context.findRenderObject() as RenderBox;
+    final Offset localOffset = box!.globalToLocal(details.globalPosition);
 
     setState(() {
       index++;
@@ -265,8 +265,8 @@ class LaPGalloryRefRearState extends State<LaPGalloryRefRear> {
         new RotatedBox(
           quarterTurns: 1,
           child: PreviewScreen(
-            imgPath: widget.imgPath,
-            fileName: widget.fileName,
+            imgPath: widget.imgPath!,
+            fileName: widget.fileName!,
           ),
         ),
         //// Show position (x2,y2)

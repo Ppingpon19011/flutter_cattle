@@ -29,9 +29,9 @@ class _MenuOptionState extends State<MenuOption> {
                   )),
               PopupMenuItem<int>(
                   value: 1,
-                  child: ListTile(
-                    leading: Icon(Icons.edit),
-                    title: Text("Edit",style: TextStyle(fontSize: 24, color: Colors.black)),
+                  child: const ListTile(
+                    leading: const Icon(Icons.edit),
+                    title: const Text("Edit",style: TextStyle(fontSize: 24, color: Colors.black)),
                   ))
             ]);
   }
@@ -44,10 +44,10 @@ void onSelected(BuildContext context, int item, String title) {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text("ลบโปรไฟล์ของ $title ",style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),),
+              title: Text("ลบโปรไฟล์ของ $title ",style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),),
               content: Text(
                 'คุณต้องการลบโปรไฟล์ของ $title ในวันที่ *02/01/2564* หรือไม่',
-                style: TextStyle(fontSize: 24, color: Colors.black),
+                style: const TextStyle(fontSize: 24, color: Colors.black),
               ),
               actions: <Widget>[
                 TextButton(
@@ -64,7 +64,7 @@ void onSelected(BuildContext context, int item, String title) {
       break;
     case 1:
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => EditOption()));
+          .push(MaterialPageRoute(builder: (context) => const EditOption()));
       break;
   }
 }
@@ -95,11 +95,11 @@ class ProfileBox extends StatelessWidget {
       // แสดงภาพโค
       leading: Image.asset(img, height: 80, width: 110, fit: BoxFit.fill),
       // แสดงชื่อโค
-      title: Text(cattleName,style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),),
+      title: Text(cattleName,style: const TextStyle(fontSize: 24,fontWeight: FontWeight.bold),),
       // แสดงรายละเอียดต่างๆ
       subtitle: Text(
         'Cattle number: $cattleNumber \nGender : $gender \nSpecise : $specise',
-        style: TextStyle(fontSize: 18, color: Colors.black),
+        style: const TextStyle(fontSize: 18, color: Colors.black),
       ),
       trailing: MenuOption(cattleName),
       onTap: () {
@@ -121,11 +121,11 @@ class DeleteOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Delete"),
+        title: const Text("Delete"),
         backgroundColor: Color(hex.hexColor("#007BA4")),
       ),
-      body: Center(
-        child: Text("Delete page"),
+      body: const Center(
+        child: const Text("Delete page"),
       ),
     );
   }
@@ -138,11 +138,11 @@ class EditOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit"),
+        title: const Text("Edit"),
         backgroundColor: Color(hex.hexColor("#007BA4")),
       ),
-      body: Center(
-        child: Text("Edit page"),
+      body: const Center(
+        child: const Text("Edit page"),
       ),
     );
   }
