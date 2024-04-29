@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'dart:math';
 
@@ -31,14 +30,14 @@ class BluePictureHG extends StatefulWidget {
   final CatTimeModel? catTime;
   final BluetoothDevice? server;
   final bool? blueConnection;
-  const BluePictureHG({
-    Key? key,
-    this.imageFile,
-    this.fileName,
-    this.catTime,
-    this.server,
-    this.blueConnection
-  }) : super(key: key);
+  const BluePictureHG(
+      {Key? key,
+      this.imageFile,
+      this.fileName,
+      this.catTime,
+      this.server,
+      this.blueConnection})
+      : super(key: key);
 
   @override
   _BluePictureHGState createState() => _BluePictureHGState();
@@ -75,7 +74,8 @@ class _BluePictureHGState extends State<BluePictureHG> {
           children: [
             LineAndPositionPictureHG(
               imgPath: widget.imageFile!.path,
-              fileName: widget.fileName!, onSelected: () {  },
+              fileName: widget.fileName!,
+              onSelected: () {},
             ),
             Padding(
               padding: EdgeInsets.all(20),
@@ -88,52 +88,51 @@ class _BluePictureHGState extends State<BluePictureHG> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             MainButton(
-                                onSelected: () async {
-                                  // print(
-                                  //     "Pixel Reference: ${snapshot.data.pixelReference}\tDistance Reference: ${snapshot.data.distanceReference}\nimageSide: ${snapshot.data.imageSide}");
-                                  double hls = calculate.distance(
-                                      snapshot.data!.pixelReference,
-                                      snapshot.data!.distanceReference,
-                                      pos.getPixelDistance());
+                              onSelected: () async {
+                                // print(
+                                //     "Pixel Reference: ${snapshot.data.pixelReference}\tDistance Reference: ${snapshot.data.distanceReference}\nimageSide: ${snapshot.data.imageSide}");
+                                double hls = calculate.distance(
+                                    snapshot.data!.pixelReference,
+                                    snapshot.data!.distanceReference,
+                                    pos.getPixelDistance());
 
-                                  print("Hear Lenght Side: $hls CM.");
+                                print("Hear Lenght Side: $hls CM.");
 
-                                  await catTimeHelper.updateCatTime(
-                                      CatTimeModel(
-                                          id: snapshot.data!.id,
-                                          idPro: snapshot.data!.idPro,
-                                          weight: snapshot.data!.weight,
-                                          bodyLenght: snapshot.data!.bodyLenght,
-                                          heartGirth: snapshot.data!.heartGirth,
-                                          hearLenghtSide: hls,
-                                          hearLenghtRear: snapshot
-                                              .data!.hearLenghtRear,
-                                          hearLenghtTop: snapshot
-                                              .data!.hearLenghtTop,
-                                          pixelReference: snapshot
-                                              .data!.pixelReference,
-                                          distanceReference:
-                                              snapshot.data!.distanceReference,
-                                          imageSide: snapshot.data!.imageSide,
-                                          imageRear: snapshot.data!.imageRear,
-                                          imageTop: snapshot.data!.imageTop,
-                                          date:
-                                              DateTime.now().toIso8601String(),
-                                          note: snapshot.data!.note));
+                                await catTimeHelper.updateCatTime(CatTimeModel(
+                                    id: snapshot.data!.id,
+                                    idPro: snapshot.data!.idPro,
+                                    weight: snapshot.data!.weight,
+                                    bodyLenght: snapshot.data!.bodyLenght,
+                                    heartGirth: snapshot.data!.heartGirth,
+                                    hearLenghtSide: hls,
+                                    hearLenghtRear:
+                                        snapshot.data!.hearLenghtRear,
+                                    hearLenghtTop: snapshot.data!.hearLenghtTop,
+                                    pixelReference:
+                                        snapshot.data!.pixelReference,
+                                    distanceReference:
+                                        snapshot.data!.distanceReference,
+                                    imageSide: snapshot.data!.imageSide,
+                                    imageRear: snapshot.data!.imageRear,
+                                    imageTop: snapshot.data!.imageTop,
+                                    date: DateTime.now().toIso8601String(),
+                                    note: snapshot.data!.note));
 
-                                          loadData();
+                                loadData();
 
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => BluePictureBL(
-                                        imgPath: widget.imageFile!.path,
-                                        fileName: widget.fileName,
-                                        catTimeID: snapshot.data!.id,
-                                        server: widget.server,
-                                        blueConnection: widget.blueConnection,
-                                        ),
-                                  ));
-                                },
-                                title: "บันทึก", pixelDistance: 10,)
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => BluePictureBL(
+                                    imgPath: widget.imageFile!.path,
+                                    fileName: widget.fileName!,
+                                    catTimeID: snapshot.data!.id,
+                                    server: widget.server!,
+                                    blueConnection: widget.blueConnection!,
+                                  ),
+                                ));
+                              },
+                              title: "บันทึก",
+                              pixelDistance: 10,
+                            )
                           ]),
                     );
                   } else {
@@ -172,7 +171,9 @@ class LineAndPositionPictureHG extends StatefulWidget {
   final String fileName;
   final VoidCallback onSelected;
   const LineAndPositionPictureHG(
-      {required this.imgPath,required this.fileName,required this.onSelected});
+      {required this.imgPath,
+      required this.fileName,
+      required this.onSelected});
 
   @override
   LineAndPositionPictureHGState createState() =>
