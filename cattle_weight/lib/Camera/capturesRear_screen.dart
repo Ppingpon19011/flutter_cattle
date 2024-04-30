@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:cattle_weight/model/catTime.dart';
 
-
+//******* */
 class CapturesRearScreen extends StatefulWidget {
   final int idPro;
   final int idTime;
